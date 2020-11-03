@@ -1,6 +1,6 @@
 # US_Complaints
 
-This data was got from https://www.kaggle.com/cfpb/us-consumer-finance-complaints
+This data was collected from https://www.kaggle.com/cfpb/us-consumer-finance-complaints
 
 # Investigative Questions
 The following are the questions that will be answered
