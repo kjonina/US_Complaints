@@ -315,7 +315,6 @@ d = dataset[dataset['issue'].notnull()]
 sns.set(style="white", color_codes=True)
 
 # We want a very fast way to concat strings.
-#  Try += if you don't believe this method is faster.
 s=StringIO()
 d['issue'].apply(lambda x: s.write(x))
 
@@ -380,12 +379,99 @@ plt.show()
 # Only interested in data with consumer complaint narrative
 narrative_dataset = dataset[dataset['consumer_complaint_narrative'].notnull()]
 
-#checking that it worked
-print(narrative_dataset.info)
+
+import re
+
+review_list=[]
+for review in narrative_dataset.consumer_complaint_narrative:
+    review = re.sub("[^a-zA-z]"," ",review) # if expression in the sentence is not a word then this code change them to space
+    review = review.lower() # turns all word in the sentence into lowercase.
+    review = nltk.word_tokenize(review) # splits the words that are in the sentence from each other.
+    lemma = nltk.WordNetLemmatizer()
+    review = [lemma.lemmatize(word) for word in review] # this code finds the root of the word for a word in the sentence and change them to their root form.
+    review = " ".join(review)
+    review_list.append(review) # store sentences in list
 
 
-# analyse 500 most commone words
-# eliminate small words such as does, think, like, etc.
-# create WordCloud
+from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
-# find better methods to analyse text.
+max_features=500 # "number" most common(used) words in reviews
+
+count_vectorizer=CountVectorizer(max_features=max_features,stop_words="english") # stop words will be dropped by stopwords command
+
+sparce_matrix=count_vectorizer.fit_transform(review_list).toarray()# this code will create matrix that consist of 0 and 1.
+ 
+sparce_matrix.shape 
+
+
+print("Top {} the most used word by reviewers: {}".format(max_features,count_vectorizer.get_feature_names()))
+
+# =============================================================================
+# Trying new things
+# =============================================================================
+
+
+from nltk.tokenize import word_tokenize
+tokenized_word=word_tokenize(review)
+print(tokenized_word)
+
+from nltk.probability import FreqDist
+fdist = FreqDist(tokenized_word)
+print(fdist)
+
+fdist.most_common(2)
+
+
+
+# removing StopWords
+from nltk.corpus import stopwords
+stop_words=set(stopwords.words("english"))
+print(stop_words)
+
+# identifying StopWords
+filtered_sent=[]
+for w in tokenized_word:
+    if w not in stop_words:
+        filtered_sent.append(w)
+print("Tokenized Sentence:",tokenized_word)
+print("Filterd Sentence:",filtered_sent)
+
+
+
+# Stemming
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+ps = PorterStemmer()
+
+stemmed_words=[]
+for w in filtered_sent:
+    stemmed_words.append(ps.stem(w))
+
+print("Filtered Sentence:",filtered_sent)
+print("Stemmed Sentence:",stemmed_words)
+
+
+#Lexicon Normalization
+#performing stemming and Lemmatization
+
+from nltk.stem.wordnet import WordNetLemmatizer
+lem = WordNetLemmatizer()
+
+from nltk.stem.porter import PorterStemmer
+stem = PorterStemmer()
+
+word = "verifying"
+print("Lemmatized Word:",lem.lemmatize(word,"v"))
+print("Stemmed Word:",stem.stem(word))
+
+
+
+tokens = nltk.word_tokenize(review)
+print(tokens)
+
+nltk.pos_tag(tokens)
+
+
+
+
