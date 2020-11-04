@@ -16,7 +16,6 @@ import collections as co # Need to make hash 'dictionaries' from nltk for fast p
 import warnings # current version of seaborn generates a bunch of warnings that we'll ignore
 warnings.filterwarnings("ignore")
 import seaborn as sns
-import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
@@ -380,6 +379,10 @@ plt.show()
 narrative_dataset = dataset[dataset['consumer_complaint_narrative'].notnull()]
 
 
+"""
+Remove XXXX from the list!
+"""
+
 import re
 
 review_list=[]
@@ -410,92 +413,108 @@ print("Top {} the most used word by reviewers: {}".format(max_features,count_vec
 # Trying new things
 # =============================================================================
 
-
+from nltk.stem.porter import PorterStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+
+
+
 tokenized_word=word_tokenize(review)
 print(tokenized_word)
 
-from nltk.probability import FreqDist
+
+tokenized_word.remove('xxxx')
+tokenized_word.remove('bring')
+tokenized_word.remove('total')
+tokenized_word.remove('said')
+tokenized_word.remove('talk')
+tokenized_word.remove('hotel')
+tokenized_word.remove('see')
+
+
 fdist = FreqDist(tokenized_word)
 print(fdist)
 
-fdist.most_common(2)
+fdist.most_common(30)
 
 
 
 # removing StopWords
-from nltk.corpus import stopwords
 stop_words=set(stopwords.words("english"))
 print(stop_words)
 
 # identifying StopWords
-filtered_sent=[]
+filtered_word=[]
 for w in tokenized_word:
     if w not in stop_words:
-        filtered_sent.append(w)
-print("Tokenized Sentence:",tokenized_word)
-print("Filterd Sentence:",filtered_sent)
-
-
+        filtered_word.append(w)
+print("Tokenized Words:",tokenized_word)
+print("Filtered Words:",filtered_word)
 
 # Stemming
-from nltk.stem import PorterStemmer
-from nltk.tokenize import word_tokenize
-
 ps = PorterStemmer()
 
 stemmed_words=[]
-for w in filtered_sent:
+for w in filtered_word:
     stemmed_words.append(ps.stem(w))
 
-print("Filtered Sentence:",filtered_sent)
-print("Stemmed Sentence:",stemmed_words)
+print("Filtered Words:",filtered_word)
+print("Stemmed Words:",stemmed_words)
+
+stemmed_words.remove('xxxx')
+stemmed_words.remove('bring')
+stemmed_words.remove('total')
+stemmed_words.remove('said')
+stemmed_words.remove('talk')
+stemmed_words.remove('hotel')
+stemmed_words.remove('see')
+print(stemmed_words)
+
+##Lexicon Normalization
+##performing stemming and Lemmatization
+#lem = WordNetLemmatizer()
+#
+#stem = PorterStemmer()
+#
+#word = "verifying"
+#print("Lemmatized Word:",lem.lemmatize(word,"v"))
+#print("Stemmed Word:",stem.stem(word))
 
 
-#Lexicon Normalization
-#performing stemming and Lemmatization
 
-from nltk.stem.wordnet import WordNetLemmatizer
-lem = WordNetLemmatizer()
-
-from nltk.stem.porter import PorterStemmer
-stem = PorterStemmer()
-
-word = "verifying"
-print("Lemmatized Word:",lem.lemmatize(word,"v"))
-print("Stemmed Word:",stem.stem(word))
-
-
-
-tokens = nltk.word_tokenize(review)
-print(tokens)
-
-nltk.pos_tag(tokens)
+#tokens = nltk.word_tokenize(review)
+#print(tokens)
+#
+#nltk.pos_tag(tokens)
 
 
 # =============================================================================
 # 
 # =============================================================================
 
-import matplotlib.pyplot as plt
+
 plt.subplots(figsize=(12,12))
 wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(tokenized_word))
 plt.imshow(wordcloud)
 plt.axis("off")
+plt.title('Display of Tokenized Words')
 plt.show()
 
 
-import matplotlib.pyplot as plt
 plt.subplots(figsize=(12,12))
 wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(stemmed_words))
 plt.imshow(wordcloud)
 plt.axis("off")
+plt.title('Display of Stemmed Words')
 plt.show()
 
 
 
 plt.subplots(figsize=(12,12))
-wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(filtered_sent))
+wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(filtered_word))
 plt.imshow(wordcloud)
 plt.axis("off")
+plt.title('Display of Filtered')
 plt.show()
