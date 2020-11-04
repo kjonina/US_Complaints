@@ -18,6 +18,7 @@ warnings.filterwarnings("ignore")
 import seaborn as sns
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
 
 
@@ -48,7 +49,7 @@ print(dataset.info())
 
 
 # checking for missing data
-pd.isna(dataset)
+dataset.isnull().sum() 
 
 # making object into categorical variables
 dataset['product'] = dataset['product'].astype('category')
@@ -364,7 +365,7 @@ plt.show()
 # TO DO -> 
 # =============================================================================
 # draw a time graph for date_received!
-# draw a graph the company by product type.
+# draw a graph the company by product type
 # draw a graph for days_process
 # find the  most common words in Narrative. 
 
@@ -372,4 +373,19 @@ plt.show()
 # find better methods to analyse text.
 
 
+# =============================================================================
+# Analysing Consumer Complaint Narrative
+# =============================================================================
 
+# Only interested in data with consumer complaint narrative
+narrative_dataset = dataset[dataset['consumer_complaint_narrative'].notnull()]
+
+#checking that it worked
+print(narrative_dataset.info)
+
+
+# analyse 500 most commone words
+# eliminate small words such as does, think, like, etc.
+# create WordCloud
+
+# find better methods to analyse text.
