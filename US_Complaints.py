@@ -10,6 +10,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import datetime
+from io import StringIO # This is used for fast string concatination
+import nltk # Use nltk for valid words
+import collections as co # Need to make hash 'dictionaries' from nltk for fast processing
+import warnings # current version of seaborn generates a bunch of warnings that we'll ignore
+warnings.filterwarnings("ignore")
+import seaborn as sns
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
 
 
 # The dataset used was collected from the following website:
@@ -273,11 +282,7 @@ plt.pie(sizes, labels = labels, autopct = '%1.1f%%',
 plt.title('Matching the Reserved Room and Assigned Room', fontdict = None, position= [0.48,1], size = 'xx-large')
 plt.show()
 
-# =============================================================================
-# 
-# =============================================================================
-# Analyse the dates of the complaints!
-# Fix the dates!
+
 
 
 
@@ -296,6 +301,75 @@ timely_response_data = dataset[dataset['timely_response'].isin(['Yes'])]
 late_response_data  = dataset[dataset['timely_response'].isin(['No'])]
 
 
+
+
+# =============================================================================
+# Preparing data for WordCloud
+# =============================================================================
+
+# Only interested in data with consumer complaints
+d = dataset[dataset['issue'].notnull()]
+
+
+sns.set(style="white", color_codes=True)
+
+# We want a very fast way to concat strings.
+#  Try += if you don't believe this method is faster.
+s=StringIO()
+d['issue'].apply(lambda x: s.write(x))
+
+k=s.getvalue()
+s.close()
+k=k.lower()
+k=k.split()
+
+# Next only want valid strings
+words = co.Counter(nltk.corpus.words.words())
+stopWords =co.Counter( nltk.corpus.stopwords.words() )
+k=[i for i in k if i in words and i not in stopWords]
+s=" ".join(k)
+c = co.Counter(k)
+
+# At this point we have k,s and c
+# k Array of words, with stop words removed
+#
+# s Concatinated string of all comments
+#
+# c Collection of words
+
+# Take a look at the 14 most common words
+c.most_common(14)
+
+s[0:100]
+
+print(k[0:10],"\n\nLength of k %s" % len(k))
+
+
+# Read the whole text.
+text = s
+
+# Generate a word cloud image
+wordcloud = WordCloud().generate(text)
+
+
+# take relative word frequencies into account, lower max_font_size
+wordcloud = WordCloud(background_color="white",max_words=len(k),max_font_size=40, relative_scaling=.8).generate(text)
+plt.figure()
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.show()
+
+
+# =============================================================================
+# TO DO -> 
+# =============================================================================
+# draw a time graph for date_received!
+# draw a graph the company by product type.
+# draw a graph for days_process
+# find the  most common words in Narrative. 
+
+# creating a wordcloud for issue was not informative 
+# find better methods to analyse text.
 
 
 
