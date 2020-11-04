@@ -440,7 +440,7 @@ print("Filterd Sentence:",filtered_sent)
 
 # Stemming
 from nltk.stem import PorterStemmer
-from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tokenize import word_tokenize
 
 ps = PorterStemmer()
 
@@ -473,5 +473,29 @@ print(tokens)
 nltk.pos_tag(tokens)
 
 
+# =============================================================================
+# 
+# =============================================================================
+
+import matplotlib.pyplot as plt
+plt.subplots(figsize=(12,12))
+wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(tokenized_word))
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.show()
 
 
+import matplotlib.pyplot as plt
+plt.subplots(figsize=(12,12))
+wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(stemmed_words))
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.show()
+
+
+
+plt.subplots(figsize=(12,12))
+wordcloud=WordCloud(background_color="white",width=1024,height=768).generate(" ".join(filtered_sent))
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.show()
