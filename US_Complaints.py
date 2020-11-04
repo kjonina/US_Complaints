@@ -58,6 +58,8 @@ dataset.info()
 # Converting 'date_received' and 'date_sent_to_company' to datetime
 # =============================================================================
 
+dataset['date_received'] = dataset['date_received'].astype('datetime64')
+dataset['date_sent_to_company'] = dataset['date_sent_to_company'].astype('datetime64')
 
 # Complete the call to convert the date column
 dataset['date_received'] =  pd.to_datetime(dataset['date_received'],
@@ -67,19 +69,11 @@ dataset['date_received'] =  pd.to_datetime(dataset['date_received'],
 dataset['date_sent_to_company'] =  pd.to_datetime(dataset['date_sent_to_company'],
                               format='%m-%d-%Y')
 
-
 print(dataset.info())
-
-# set date- received as index.
-dataset.set_index('date_received', inplace=True)
-print(dataset.head(5))
-
-
-
 
 #creating column to asses the number of days to process claim
 dataset['days_to_process'] = dataset['date_sent_to_company'] - dataset['date_received']
-#
+
 #plt.figure(figsize = (12, 8))
 #sns.countplot(x = 'days_to_process', data = dataset, palette = 'viridis', order = dataset['days_to_process'].value_counts().index)
 #plt.xticks(rotation = 90)
