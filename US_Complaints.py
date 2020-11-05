@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Name:               Karina Jonina 
-Github:             https://github.com/KarinaPS11/
+Github:             https://github.com/kjonina/
 Data Gathered:      https://www.kaggle.com/cfpb/us-consumer-finance-complaints
 """
 
