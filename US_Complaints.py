@@ -70,26 +70,20 @@ dataset.info()
 dataset['date_received'] = dataset['date_received'].astype('datetime64')
 dataset['date_sent_to_company'] = dataset['date_sent_to_company'].astype('datetime64')
 
-# Complete the call to convert the date column
-dataset['date_received'] =  pd.to_datetime(dataset['date_received'],
-                              format='%m-%d-%Y')
 
-# Complete the call to convert the date column
-dataset['date_sent_to_company'] =  pd.to_datetime(dataset['date_sent_to_company'],
-                              format='%m-%d-%Y')
 
 print(dataset.info())
 
 #creating column to asses the number of days to process claim
 dataset['days_to_process'] = dataset['date_sent_to_company'] - dataset['date_received']
 
-#plt.figure(figsize = (12, 8))
-#sns.countplot(x = 'days_to_process', data = dataset, palette = 'viridis', order = dataset['days_to_process'].value_counts().index)
-#plt.xticks(rotation = 90)
-#plt.title('Days Needed for the Company to Respond', fontsize = 16)
-#plt.ylabel('count', fontsize = 14)
-#plt.xlabel('Number of days to Process', fontsize = 14)
-#plt.show()
+plt.figure(figsize = (12, 8))
+sns.countplot(x = 'days_to_process', data = dataset, palette = 'viridis', order = dataset['days_to_process'].value_counts().index)
+plt.xticks(rotation = 90)
+plt.title('Days Needed for the Company to Respond', fontsize = 16)
+plt.ylabel('count', fontsize = 14)
+plt.xlabel('Number of days to Process', fontsize = 14)
+plt.show()
 
 print(dataset['days_to_process'])
 
