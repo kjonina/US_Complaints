@@ -72,8 +72,13 @@ df.info()
 df['date_received'] = df['date_received'].astype('datetime64')
 df['date_sent_to_company'] = df['date_sent_to_company'].astype('datetime64')
 
+df['date_received'] = df['date_received'].dt.date
+df['date_sent_to_company'] = df['date_sent_to_company'].dt.date
+
 #creating column to asses the number of days to process claim
 df['days_to_process'] = df['date_sent_to_company'] - df['date_received']
+
+
 
 print(df['days_to_process'])
 
@@ -181,9 +186,13 @@ plt.show()
 # =============================================================================
 # Examining days_to_process by Product
 # ============================================================================= 
-product_days = df.groupby(['product']
-        )['days_to_process'].sum().sort_values(ascending = False)
+df.groupby('product')['days_to_process'].value_counts()
 
+
+product_days = df.groupby(['product']
+        )['days_to_process'].mean()
+
+product_days.describe()
 
 #Creating a graph for TV Shows
 plt.figure(figsize = (12, 8))
@@ -252,6 +261,13 @@ plt.xlabel('count', fontsize = 14)
 
 
 
+sns.barplot(y = "product", data = df,
+                 palette = 'Reds_d')
+plt.set_title('Top 15 TV Shows Mid-Covid', fontsize = 20)
+plt.set_ylabel('TV Shows', fontsize = 14)
+plt.set_xlabel('Duration', fontsize = 14)
+plt.set_xticklabels(plt.get_xticklabels(), rotation = 90)
+
 
 # =============================================================================
 # Preparing data for WordCloud
@@ -308,17 +324,6 @@ plt.imshow(wordcloud)
 plt.axis("off")
 plt.show()
 
-
-# =============================================================================
-# TO DO -> 
-# =============================================================================
-# draw a time graph for date_received + date_sent_to_company!
-# draw a graph the company by product type
-# draw a graph for days_process
-# find the  most common words in Narrative. 
-#
-# creating a wordcloud for issue was not informative 
-# find better methods to analyse text.
 
 
 # =============================================================================
