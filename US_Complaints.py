@@ -90,11 +90,10 @@ df.groupby(['state']).size().sort_values(ascending=False)
 # Examines the top 25 States that have complaints
 sns.set()
 plt.figure(figsize = (12, 8))
-sns.countplot(x = 'state', data = df, palette = 'magma', order = df['state'].value_counts().head(25).index)
-plt.xticks(rotation = 90)
+sns.countplot(y = 'state', data = df, palette = 'magma', order = df['state'].value_counts().head(25).index)
 plt.title('Breakdown of Top 25 States', fontsize = 16)
-plt.ylabel('Number of Complaints', fontsize = 14)
-plt.xlabel('States', fontsize = 14)
+plt.ylabel('States', fontsize = 14)
+plt.xlabel('Number of Complaints', fontsize = 14)
 plt.show()
 
 # =============================================================================
