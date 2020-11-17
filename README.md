@@ -24,19 +24,19 @@ New Variables:
 
 ### What states have the most number of complaints?
 
-![state](https://github.com/kjonina/US_Complaints/blob/main/Graphs/state.png)
+![state](https://github.com/kjonina/US_Complaints/blob/changes/Graph/state.png)
 
 ### What products have the most number of complaints?
 
-![products](https://github.com/kjonina/US_Complaints/blob/main/Graphs/Products.png)
+![products](https://github.com/kjonina/US_Complaints/blob/changes/Graph/Products.png)
 
 ### What products have the most number of complaints?
 
-![products](https://github.com/kjonina/US_Complaints/blob/main/Graphs/Products.png)
+![products](https://github.com/kjonina/US_Complaints/blob/changes/Graph/Products.png)
 
 ### What was the most popular method of submission??
 
-![submission](https://github.com/kjonina/US_Complaints/blob/main/Graphs/submission.png)
+![submission](https://github.com/kjonina/US_Complaints/blob/changes/Graph/submission.png)
 
 
 There is a big discrepancy between methods of submission. How was fax more popular than email? 
@@ -53,7 +53,7 @@ There is a big discrepancy between methods of submission. How was fax more popul
 
 ### What was the most common response from the companies?
 
-![response](https://github.com/kjonina/US_Complaints/blob/main/Graphs/response.png)
+![response](https://github.com/kjonina/US_Complaints/blob/changes/Graph/response.png)
 
 | Submission Method | Count |
 | ---------------- | ------------- |
@@ -69,7 +69,7 @@ There is a big discrepancy between methods of submission. How was fax more popul
 
 ### Was that the companies response any good?
 
-![timely](https://github.com/kjonina/US_Complaints/blob/main/Graphs/timely.png)
+![timely](https://github.com/kjonina/US_Complaints/blob/changes/Graph/timely.png)
 
 Only 2.5% of compaints did not receive a timely response.
 
@@ -81,7 +81,7 @@ Only 2.5% of compaints did not receive a timely response.
 
 ### What is the length of time between the date sent to the company and date received by product?
 
-![response_by_product](https://github.com/kjonina/US_Complaints/blob/main/Graphs/response_by_product.png)
+![response_by_product](https://github.com/kjonina/US_Complaints/blob/changes/Graph/response_by_product.png)
 
  
  # TO DO -> 
