@@ -83,6 +83,7 @@ Only 2.5% of compaints did not receive a timely response.
 
 ![response_by_product](https://github.com/kjonina/US_Complaints/blob/changes/Graph/response_by_product.png)
 
+## how are credit card, mortgage etc, negative? Check this out for future
  
  # TO DO -> 
  
